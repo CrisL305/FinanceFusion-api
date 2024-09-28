@@ -136,10 +136,40 @@ passport.deserializeUser((userId, done) => {
 //========================================
 
 //Middleware for creating the connection to auth route
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth-routes');
 
 //Initializing authRoutes middleware
 app.use('/auth', authRoutes);
+
+//Middleware for creating the connection to account route
+const accountRoute = require('./routes/accounts-routes');
+
+//Initializing accountRoute middleware
+app.use('/accounts', accountRoute);
+
+//Middleware for creating the connection to goalsAndBudgetingRoute route
+const goalsAndBudgetingRoute = require('./routes/goalsAndBudget-routes');
+
+//Initializing goalsAndBudgetingRoute middleware
+app.use('/goalsAndBudgeting', goalsAndBudgetingRoute);
+
+//Middleware for creating the connection to homeDashboardRoute route
+const homeDashboardRoute = require('./routes/homeDashboard-routes');
+
+//Initializing homeDashboardRoute middleware
+app.use('/homeDashboard', homeDashboardRoute);
+
+//Middleware for creating the connection to reportsAndAnalysisRoute route
+const reportsAndAnalysisRoute = require('./routes/reportsAndAnalytics-routes');
+
+//Initializing reportsAndAnalysisRoute middleware
+app.use('/reportsAndAnalysis', reportsAndAnalysisRoute);
+
+//Middleware for creating the connection to transactionsRoute route
+const transactionsRoute = require('./routes/transactions-routes');
+
+//Initializing transactionsRoute middleware
+app.use('/transactions', transactionsRoute);
 
 app.listen(PORT, ()=> {
     console.log(`Server listening on port ${PORT}.`);
