@@ -16,12 +16,16 @@ exports.seed = async function(knex) {
   await knex('Users').insert([
     {
       user_id: 1,
+      github_id: 239,
+      avatar_url: 'exampleurl.com',
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: 'hashedpassword1'
     },
     {
       user_id: 2,
+      github_id: 275,
+      avatar_url: 'exampleurl2.com',
       name: 'Jane snow',
       email: 'janesnow@example.com',
       password: 'hashedpassword2'
@@ -63,7 +67,7 @@ exports.seed = async function(knex) {
       user_id: 1, 
       goal_type: 'Save for Vacation',
       target_amount: 5000,
-      current_saving: 1000,
+      current_savings: 1000,
       deadline: '2025-06-01'
     },
     {
@@ -71,7 +75,7 @@ exports.seed = async function(knex) {
       user_id: 2, 
       goal_type: 'Emergency Fund',
       target_amount: 10000,
-      current_saving: 3000,
+      current_savings: 3000,
       deadline: '2026-12-31'
     }
   ]);
