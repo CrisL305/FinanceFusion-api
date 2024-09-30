@@ -135,6 +135,12 @@ passport.deserializeUser((userId, done) => {
 
 //========================================
 
+//Middleware for creating the connection to user route
+const usersRoutes = require('./routes/users-routes');
+
+//Initializing authRoutes middleware
+app.use('/users', usersRoutes);
+
 //Middleware for creating the connection to auth route
 const authRoutes = require('./routes/auth-routes');
 
