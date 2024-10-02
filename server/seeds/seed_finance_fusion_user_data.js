@@ -60,6 +60,37 @@ exports.seed = async function(knex) {
     }
   ]);
 
+  //Inserts transactions
+  await knex('Transactions').insert([
+    { 
+      transaction_id: 1,
+      account_id: 1,
+      amount: -50.00,
+      transaction_type: 'expense',
+      category: 'Groceries',
+      date: '2024-09-20',
+      description: 'Grocery Store'
+    },
+    { 
+      transaction_id: 2,
+      account_id: 1,
+      amount: 1500.00,
+      transaction_type: 'income',
+      category: 'Salary',
+      date: '2024-09-15',
+      description: 'Monthly Paycheck'
+    },
+    { 
+      transaction_id: 3,
+      account_id: 2,
+      amount: -100.00,
+      transaction_type: 'expense',
+      category: 'Utilities',
+      date: '2024-09-18',
+      description: 'Electricity Bill'
+    }
+  ]);
+
   //Inserts goals
   await knex('Goals').insert([
     {
