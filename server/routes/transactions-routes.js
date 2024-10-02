@@ -1,16 +1,16 @@
 const router = require('express').Router();
+const TransactionController = require('../controllers/TransactionController');
 
 //Retrieves all transactions across connected accounts
-router.get("/", (_req, res) => {
-    //This implemantation is to make sure the endpoint GET works
-    res.send("You have reached the transaction GET List");
-});
+router.get("/account/:accountId", TransactionController.getTransactionByAccountId);
 
 //Adds a new transaction to an account
-router.post("/", (_req, res) => {
-    //This implemantation is to make sure the endpoint POST works
-    res.send("You have reached the transaction POST");
-});
+router.post("/", TransactionController.createTransaction);
 
+//Updates a transaction on an account
+router.put("/:transactionId", TransactionController.updateTransaction);
+
+//Deletes a transaction on an account
+router.delete("/:transactionId", TransactionController.deleteTransaction);
 
 module.exports = router;

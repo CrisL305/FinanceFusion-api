@@ -1,21 +1,32 @@
 const router = require('express').Router();
+const GoalsController = require('../controllers/GoalsController');
+const BudgetsController = require('../controllers/BudgetsController');
 
 //Retrieves all financial goals for the user
-router.get("/", (_req, res) => {
-    //This implemantation is to make sure the endpoint GET works
-    res.send("You have reached the goals GET List");
-});
+router.get("/user/:userId", GoalsController.getGoalsByUserId);
 
 //Adds a new financial goal to an account
-router.post("/", (_req, res) => {
-    //This implemantation is to make sure the endpoint POST works
-    res.send("You have reached the goals POST");
-});
+router.post("/", GoalsController.createGoal);
 
-//Retrieves the user's budget for different categories
-router.get("/", (_req, res) => {
-    //This implemantation is to make sure the endpoint GET works
-    res.send("You have reached the budgets GET List");
-});
+//Updates the user's goal
+router.put("/:goalId", GoalsController.updateGoal);
+
+//Delete the user's goal
+router.put("/:goalId", GoalsController.deleteGoal);
+
+//==================Budget================
+
+//Retrieves all budgets from the user
+router.get("/user/:userId", BudgetsController.getBudgetsByUserId);
+
+//Adds a new budget to an account
+router.post("/", BudgetsController.createBudget);
+
+//Updates the user's budget
+router.put("/:budgetId", BudgetsController.updateBudget);
+
+//Delete the user's budget
+router.put("/:budgetId", BudgetsController.deleteBudget);
+
 
 module.exports = router;

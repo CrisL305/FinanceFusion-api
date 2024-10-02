@@ -20,6 +20,33 @@ const knex = require('knex')(require('./knexfile'));
 const app = express();
 const PORT = process.env.PORT || 5050;
 
+//Middleware for creating the connection to user route
+const usersRoutes = require('./routes/users-routes');
+
+//Middleware for creating the connection to auth route
+const authRoutes = require('./routes/auth-routes');
+
+//Middleware for creating the connection to account route
+const accountRoute = require('./routes/accounts-routes');
+
+//Middleware for creating the connection to goalsAndBudgetingRoute route
+const goalsAndBudgetingRoute = require('./routes/goalsAndBudget-routes');
+
+//Middleware for creating the connection to homeDashboardRoute route
+const homeDashboardRoute = require('./routes/homeDashboard-routes');
+
+//Middleware for creating the connection to reportsAndAnalysisRoute route
+const reportsAndAnalysisRoute = require('./routes/reportsAndAnalytics-routes');
+
+//Middleware for creating the connection to transactionsRoute route
+const transactionsRoute = require('./routes/transactions-routes');
+
+//Middleware for creating the connection to loanRoute route
+const loanRoute = require('./routes/loans-routes');
+
+//Middleware for creating the connection to creditScoresRoutes route
+const creditScoresRoutes = require('./routes/creditScores-routes');
+
 //Require .env files for environment variables (keys and secrets)
 require('dotenv').config();
 
@@ -72,7 +99,7 @@ passport.use(
             console.log('GitHub profile:', profile);
 
             //This code checks if we already have this user in our DB
-            knex('users')
+            knex('Users')
                 .select('id')
                 .where({ github_id: profile.id })
                 .then((user) => {
@@ -119,7 +146,7 @@ passport.deserializeUser((userId, done) => {
     console.log('deserializeUser (user id):', userId);
 
       // Query user information from the database for currently authenticated user
-  knex('users')
+  knex('Users')
   .where({ id: userId })
   .then((user) => {
     // Remember that knex will return an array of records, so we need to get a single record from it
@@ -135,47 +162,34 @@ passport.deserializeUser((userId, done) => {
 
 //========================================
 
-//Middleware for creating the connection to user route
-const usersRoutes = require('./routes/users-routes');
 
-//Initializing authRoutes middleware
+
+//Initializing usersRoutes middleware
 app.use('/users', usersRoutes);
-
-//Middleware for creating the connection to auth route
-const authRoutes = require('./routes/auth-routes');
 
 //Initializing authRoutes middleware
 app.use('/auth', authRoutes);
 
-//Middleware for creating the connection to account route
-const accountRoute = require('./routes/accounts-routes');
-
 //Initializing accountRoute middleware
 app.use('/accounts', accountRoute);
-
-//Middleware for creating the connection to goalsAndBudgetingRoute route
-const goalsAndBudgetingRoute = require('./routes/goalsAndBudget-routes');
 
 //Initializing goalsAndBudgetingRoute middleware
 app.use('/goalsAndBudgeting', goalsAndBudgetingRoute);
 
-//Middleware for creating the connection to homeDashboardRoute route
-const homeDashboardRoute = require('./routes/homeDashboard-routes');
-
 //Initializing homeDashboardRoute middleware
 app.use('/homeDashboard', homeDashboardRoute);
-
-//Middleware for creating the connection to reportsAndAnalysisRoute route
-const reportsAndAnalysisRoute = require('./routes/reportsAndAnalytics-routes');
 
 //Initializing reportsAndAnalysisRoute middleware
 app.use('/reportsAndAnalysis', reportsAndAnalysisRoute);
 
-//Middleware for creating the connection to transactionsRoute route
-const transactionsRoute = require('./routes/transactions-routes');
-
 //Initializing transactionsRoute middleware
 app.use('/transactions', transactionsRoute);
+
+//Initializing loanRoute middleware
+app.use('/loans', loanRoute);
+
+//Initializing creditScoresRoutes middleware
+app.use('/creditscores', creditScoresRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server listening on port ${PORT}.`);

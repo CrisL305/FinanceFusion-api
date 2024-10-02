@@ -40,6 +40,7 @@ exports.up = function(knex) {
         table.enu('transaction_type', ['income', 'expense']).notNullable();
         table.string('category', 255).notNullable();
         table.string('description', 255).notNullable();
+        table.date('date').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
     
