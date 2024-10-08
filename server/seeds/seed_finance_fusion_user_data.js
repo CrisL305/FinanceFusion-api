@@ -15,20 +15,16 @@ exports.seed = async function(knex) {
   //Inserts users
   await knex('Users').insert([
     {
-      user_id: 1,
+      id: 1,
       github_id: 239,
       avatar_url: 'exampleurl.com',
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: 'hashedpassword1'
+      username: "John Doe",
     },
     {
-      user_id: 2,
+      id: 2,
       github_id: 275,
       avatar_url: 'exampleurl2.com',
-      name: 'Jane snow',
-      email: 'janesnow@example.com',
-      password: 'hashedpassword2'
+      username: "Jane Snow",
     }
   ]);
 
@@ -36,7 +32,7 @@ exports.seed = async function(knex) {
   await knex('Accounts').insert([
     { 
       account_id: 1,
-      user_id: 1,
+      id: 1,
       bank_name: 'Chase',
       account_type: 'Checking',
       balance: 2500.75,
@@ -44,7 +40,7 @@ exports.seed = async function(knex) {
     },
     { 
       account_id: 2,
-      user_id: 1,
+      id: 1,
       bank_name: 'Capital One',
       account_type: 'Credit Card',
       balance: -500.00,
@@ -52,7 +48,7 @@ exports.seed = async function(knex) {
     },
     { 
       account_id: 3,
-      user_id: 2,
+      id: 2,
       bank_name: 'Wells Fargo',
       account_type: 'Savings',
       balance: 10000.00,
@@ -95,7 +91,7 @@ exports.seed = async function(knex) {
   await knex('Goals').insert([
     {
       goal_id: 1,
-      user_id: 1, 
+      id: 1, 
       goal_type: 'Save for Vacation',
       target_amount: 5000,
       current_savings: 1000,
@@ -103,7 +99,7 @@ exports.seed = async function(knex) {
     },
     {
       goal_id: 2,
-      user_id: 2, 
+      id: 2, 
       goal_type: 'Emergency Fund',
       target_amount: 10000,
       current_savings: 3000,
@@ -115,7 +111,7 @@ exports.seed = async function(knex) {
   await knex('Loans').insert([
     {
       loan_id: 1,
-      user_id: 1,
+      id: 1,
       loan_type: 'Student Loan',
       outstanding_balance: 15000,
       interest_rate: 4.5,
@@ -123,7 +119,7 @@ exports.seed = async function(knex) {
     },
     {
       loan_id: 2,
-      user_id: 2,
+      id: 2,
       loan_type: 'Mortgage',
       outstanding_balance: 250000,
       interest_rate: 3.8,
@@ -135,7 +131,7 @@ exports.seed = async function(knex) {
   await knex('CreditScores').insert([
     {
       score_id: 1,
-      user_id: 1,
+      id: 1,
       current_score: 720,
       score_history: JSON.stringify(
         [
@@ -151,7 +147,7 @@ exports.seed = async function(knex) {
     },
     {
       score_id: 2,
-      user_id: 2,
+      id: 2,
       current_score: 680,
       score_history: JSON.stringify(
         [
