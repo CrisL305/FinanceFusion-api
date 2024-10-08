@@ -108,7 +108,7 @@ passport.use(
                         done(null, user[0]);
                     } else {
                         //If user isn't found, we create a record
-                        knex('users')
+                        knex('Users')
                         .insert({
                             github_id: profile.id,
                             avatar_url: profile._json.avatar_url,
