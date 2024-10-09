@@ -107,6 +107,17 @@ exports.seed = async function(knex) {
     }
   ]);
 
+  //Inserts budget
+  await knex('Budgets').insert([
+    {
+      budget_id: 1,
+      id: 1,
+      category: "food",
+      budgeted_amount: "300",
+      actual_spent: "200"
+    }
+  ])
+
   //Inserts loans
   await knex('Loans').insert([
     {

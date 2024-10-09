@@ -3,7 +3,7 @@ const knex = require('knex')(require('../knexfile'));
 //Get all loans for a user
 exports.getLoansByUserId = async (req, res) => {
     try {
-        const loans = await knex('Loans').where({ user_id: req.params.userId });
+        const loans = await knex('Loans').where({ id: req.params.id });
         res.status(200).json(loans);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching loans' });
@@ -13,8 +13,8 @@ exports.getLoansByUserId = async (req, res) => {
 //Create new loan
 exports.createLoan = async (req, res) => {
     try {
-        const { user_id, loan_type, outstanding_balance, interest_rate, payment_schedule } = req.body;
-        const [newLoanId] = await knex('Loans').insert({ user_id, loan_type, outstanding_balance, interest_rate, payment_schedule });
+        const { id, loan_type, outstanding_balance, interest_rate, payment_schedule } = req.body;
+        const [newLoanId] = await knex('Loans').insert({ id, loan_type, outstanding_balance, interest_rate, payment_schedule });
         res.status(201).json({ loan_id: newLoanId });
     } catch (error) {
         res.status(500).json({ error: 'Error creating loans' });

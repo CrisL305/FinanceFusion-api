@@ -3,7 +3,7 @@ const knex = require('knex')(require('../knexfile'));
 //Get all goals for a user
 exports.getGoalsByUserId = async (req, res) => {
     try {
-        const goals = await knex('Goals').where({ user_id: req.params.userId });
+        const goals = await knex('Goals').where({ id: req.params.id });
         res.status(200).json(goals);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching goals' });
@@ -13,8 +13,8 @@ exports.getGoalsByUserId = async (req, res) => {
 //Create new goal
 exports.createGoal = async (req, res) => {
     try {
-        const { user_id, goal_type, target_amount, current_savings, deadline } = req.body;
-        const [newGoalId] = await knex('Goals').insert({ user_id, goal_type, target_amount, current_savings, deadline });
+        const { id, goal_type, target_amount, current_savings, deadline } = req.body;
+        const [newGoalId] = await knex('Goals').insert({ id, goal_type, target_amount, current_savings, deadline });
         res.status(201).json({ goal_id: newGoalId });
     } catch (error) {
         res.status(500).json({ error: 'Error creating goal' });

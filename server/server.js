@@ -30,7 +30,10 @@ const authRoutes = require('./routes/auth-routes');
 const accountRoute = require('./routes/accounts-routes');
 
 //Middleware for creating the connection to goalsAndBudgetingRoute route
-const goalsAndBudgetingRoute = require('./routes/goalsAndBudget-routes');
+const goalsRoute = require('./routes/goals-routes');
+
+//Middleware for creating the connection to goalsAndBudgetingRoute route
+const budgetsRoute = require('./routes/budgets-routes');
 
 //Middleware for creating the connection to homeDashboardRoute route
 const homeDashboardRoute = require('./routes/homeDashboard-routes');
@@ -174,7 +177,10 @@ app.use('/auth', authRoutes);
 app.use('/accounts', accountRoute);
 
 //Initializing goalsAndBudgetingRoute middleware
-app.use('/goalsAndBudgeting', goalsAndBudgetingRoute);
+app.use('/goals', goalsRoute);
+
+//Initializing goalsAndBudgetingRoute middleware
+app.use('/budgets', budgetsRoute);
 
 //Initializing homeDashboardRoute middleware
 app.use('/homeDashboard', homeDashboardRoute);

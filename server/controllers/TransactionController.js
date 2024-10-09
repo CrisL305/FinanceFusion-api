@@ -3,7 +3,7 @@ const knex = require('knex')(require('../knexfile'));
 //Get all transactions for an account
 exports.getTransactionByAccountId = async (req, res) => {
     try{
-        const transactions = await knex('Transactions').where({ account_id: req.params.accountId });
+        const transactions = await knex('Transactions').where({ account_id: req.params.account_id });
         res.status(200).json(transactions);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching transactions' });
