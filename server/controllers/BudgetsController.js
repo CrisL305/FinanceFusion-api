@@ -3,7 +3,7 @@ const knex = require('knex')(require('../knexfile'));
 //Get all budgets for a user
 exports.getBudgetsByUserId = async (req, res) => {
     try{
-        const budgets = await knex('Budgets').where({ user_id: req.params.userId });
+        const budgets = await knex('Budgets').where({ id: req.params.id });
         res.status(200).json(budgets);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching budgets' });
@@ -13,8 +13,8 @@ exports.getBudgetsByUserId = async (req, res) => {
 //Create new budget
 exports.createBudget = async (req, res) => {
     try{
-        const { user_id, category, budgeted_amount, actual_spent } = req.body;
-        const [newBudgetId] = await knex('Budgets').insert({ user_id, category, budgeted_amount, actual_spent });
+        const { id, category, budgeted_amount, actual_spent } = req.body;
+        const [newBudgetId] = await knex('Budgets').insert({ id, category, budgeted_amount, actual_spent });
         res.status(201).json({ budget_id: newBudgetId });
     } catch (error) {
         res.status(500).json({ error: 'Error creating budget' });

@@ -2,7 +2,7 @@ const router = require("express").Router();
 const AccountsController = require('../controllers/AccountsController');
 
 //Retrives all connected accounts for the authenticated user.
-router.get('/user/:userId', AccountsController.getAccountsByUserId);
+router.get('/:id', AccountsController.getAccountsByUserId);
 
 //Adds a new bank or credit card account
 router.post('/', AccountsController.createAccount);

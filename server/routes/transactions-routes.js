@@ -2,7 +2,7 @@ const router = require('express').Router();
 const TransactionController = require('../controllers/TransactionController');
 
 //Retrieves all transactions across connected accounts
-router.get("/account/:accountId", TransactionController.getTransactionByAccountId);
+router.get("/account/:account_id", TransactionController.getTransactionByAccountId);
 
 //Adds a new transaction to an account
 router.post("/", TransactionController.createTransaction);
