@@ -5,12 +5,12 @@ const TransactionController = require('../controllers/TransactionController');
 router.get("/account/:account_id", TransactionController.getTransactionByAccountId);
 
 //Adds a new transaction to an account
-router.post("/", TransactionController.createTransaction);
+router.post("/account/:account_id", TransactionController.createTransaction);
 
 //Updates a transaction on an account
-router.put("/:transactionId", TransactionController.updateTransaction);
+router.put("/account/:account_id/:transaction_id", TransactionController.updateTransaction);
 
 //Deletes a transaction on an account
-router.delete("/:transactionId", TransactionController.deleteTransaction);
+router.delete("/account/:account_id/:transaction_id", TransactionController.deleteTransaction);
 
 module.exports = router;
