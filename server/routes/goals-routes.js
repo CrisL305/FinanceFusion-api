@@ -9,9 +9,9 @@ router.get("/:id", GoalsController.getGoalsByUserId);
 router.post("/", GoalsController.createGoal);
 
 //Updates the user's goal
-router.put("/:goalId", GoalsController.updateGoal);
+router.put("/:id", GoalsController.updateGoal);
 
 //Delete the user's goal
-router.put("/:goalId", GoalsController.deleteGoal);
+router.put("/:id", GoalsController.deleteGoal);
 
 module.exports = router;
