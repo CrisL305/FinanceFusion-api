@@ -6,12 +6,12 @@ const GoalsController = require('../controllers/GoalsController');
 router.get("/:id", GoalsController.getGoalsByUserId);
 
 //Adds a new financial goal to an account
-router.post("/", GoalsController.createGoal);
+router.post("/:id", GoalsController.createGoal);
 
 //Updates the user's goal
-router.put("/:id", GoalsController.updateGoal);
+router.put("/:id/:goal_id", GoalsController.updateGoal);
 
 //Delete the user's goal
-router.put("/:id", GoalsController.deleteGoal);
+router.delete("/:id/:goal_id", GoalsController.deleteGoal);
 
 module.exports = router;

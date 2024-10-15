@@ -24,12 +24,13 @@ exports.createBudget = async (req, res) => {
 //Update budget
 exports.updateBudget = async (req, res) => {
     try{
+        const {budget_id} = req.params;
         const { category, budgeted_amount, actual_spent } = req.body;
-        const budget = await knex('Budgets').where({ budget_id: req.params.budgetId }).first();
+        const budget = await knex('Budgets').where({ budget_id }).first();
         if (!budget) {
             return res.status(404).json({ message: 'Budget not found' });
         }
-        await knex('Budgets').where({ budget_id: req.params.budgetId }).update({ category, budgeted_amount, actual_spent });
+        await knex('Budgets').where({ budget_id }).update({ category, budgeted_amount, actual_spent });
         res.status(200).json({ message: 'Budget updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error updating budget' });
@@ -39,13 +40,14 @@ exports.updateBudget = async (req, res) => {
 //Delete budget
 exports.deleteBudget = async (req, res) => {
     try{
-        const budget = await knex('Budgets').where({ budget_id: req.params.budgetId }).first();
+        const budget = await knex('Budgets').where({ budget_id: req.params.budget_id }).first();
         if (!budget) {
             return res.status(404).json({ message: 'Budget not found' });
         }
-        await knex('Budgets').where({ budget_id: req.params.budgetId }).del();
+        await knex('Budgets').where({ budget_id: req.params.budget_id }).del();
         res.status(200).json({ message: 'Budget deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting budget' });
+        console.error(error);
     }
 };

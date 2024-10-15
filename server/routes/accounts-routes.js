@@ -5,12 +5,12 @@ const AccountsController = require('../controllers/AccountsController');
 router.get('/:id', AccountsController.getAccountsByUserId);
 
 //Adds a new bank or credit card account
-router.post('/', AccountsController.createAccount);
+router.post('/:id', AccountsController.createAccount);
 
 //Updates a connected account
-router.put('/:accountId', AccountsController.updateAccount);
+router.put('/:id/:account_id', AccountsController.updateAccount);
 
 //Delete a connected account
-router.delete('/:accountId', AccountsController.deleteAccount);
+router.delete('/:id/:account_id', AccountsController.deleteAccount);
 
 module.exports = router;

@@ -5,12 +5,12 @@ const BudgetsController = require('../controllers/BudgetsController');
 router.get("/:id", BudgetsController.getBudgetsByUserId);
 
 //Adds a new budget to an account
-router.post("/", BudgetsController.createBudget);
+router.post("/:id", BudgetsController.createBudget);
 
 //Updates the user's budget
-router.put("/:budgetId", BudgetsController.updateBudget);
+router.put("/:id/:budget_id", BudgetsController.updateBudget);
 
 //Delete the user's budget
-router.put("/:budgetId", BudgetsController.deleteBudget);
+router.delete("/:id/:budget_id", BudgetsController.deleteBudget);
 
 module.exports = router;
