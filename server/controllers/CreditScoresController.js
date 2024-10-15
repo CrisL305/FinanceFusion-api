@@ -27,26 +27,28 @@ exports.createCreditScore = async (req, res) => {
 //Update credit score
 exports.updateCreditScore = async (req, res) => {
     try {
+        const {score_id} = req.params;
         const { current_score, score_history, credit_utilization } = req.body;
-        const creditScore = await knex('CreditScores').where({ score_id: req.params.userId }).first();
+        const creditScore = await knex('CreditScores').where({ score_id }).first();
         if (!creditScore) {
             return res.status(404).json({ message: 'Credit score not found' });
         }
-        await knex('CreditScore').where({ score_id: req.params.scoreId }).update({ current_score, score_history, credit_utilization });
+        await knex('CreditScores').where({ score_id }).update({ current_score, score_history: JSON.stringify(score_history), credit_utilization });
         res.status(200).json({ message: 'Credit score updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error updating credit score' });
+        console.error(error);
     }
 };
 
 //Delete credit score
 exports.deleteCreditScore = async (req, res) => {
     try {
-        const creditScore = await knex('CreditScores').where({ score_id: req.params.userId }).first();
+        const creditScore = await knex('CreditScores').where({ score_id: req.params.score_id }).first();
         if (!creditScore) {
             return res.status(404).json({ message: 'Credit score not found' });
         }
-        await knex('CreditScore').where({ score_id: req.params.scoreId }).del();
+        await knex('CreditScores').where({ score_id: req.params.score_id }).del();
         res.status(200).json({ message: 'Credit score deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleted credit score' });

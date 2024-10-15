@@ -5,12 +5,12 @@ const CreditScoresController = require('../controllers/CreditScoresController');
 router.get("/:id", CreditScoresController.getCreditScoreByUserId);
 
 //Adds credit score data to an account
-router.post("/", CreditScoresController.createCreditScore);
+router.post("/:id", CreditScoresController.createCreditScore);
 
 //Updates credit score information
-router.put("/:scoreId", CreditScoresController.updateCreditScore);
+router.put("/:id/:score_id", CreditScoresController.updateCreditScore);
 
 //Deletes credit score information
-router.put("/:scoreId", CreditScoresController.deleteCreditScore);
+router.delete("/:id/:score_id", CreditScoresController.deleteCreditScore);
 
 module.exports = router;

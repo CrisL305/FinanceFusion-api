@@ -24,12 +24,13 @@ exports.createGoal = async (req, res) => {
 //Update goal
 exports.updateGoal = async (req, res) => {
     try {
+        const {goal_id} = req.params;
         const { goal_type, target_amount, current_savings, deadline } = req.body;
-        const goal = await knex('Goals').where({ goal_id: req.params.goalId }).first();
+        const goal = await knex('Goals').where({ goal_id }).first();
         if (!goal) {
             return res.status(404).json({ message: 'Goal not found' });
         }
-        await knex('Goals').where({ goal_id: req.params.goalId }).update({ goal_type, target_amount, current_savings, deadline });
+        await knex('Goals').where({ goal_id }).update({ goal_type, target_amount, current_savings, deadline });
         res.status(200).json({ message: 'Goal updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error updating goal' });
@@ -39,11 +40,11 @@ exports.updateGoal = async (req, res) => {
 //Delete goal
 exports.deleteGoal = async (req, res) => {
     try{
-        const goal = await knex('Goals').where({ goal_id: req.params.goalId }).first();
+        const goal = await knex('Goals').where({ goal_id: req.params.goal_id }).first();
         if (!goal) {
             return res.status(404).json({ message: 'Goal not found' });
         }
-        await knex('Goals').where({ goal_id: req.params.goalId }).del();
+        await knex('Goals').where({ goal_id: req.params.goal_id }).del();
         res.status(200).json({ message: 'Goal deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting goal' });

@@ -20,7 +20,7 @@ exports.up = function(knex) {
         table.string('bank_name', 255).notNullable();
         table.string('account_type', 100).notNullable();
         table.decimal('balance', 14, 2).notNullable();
-        table.string('account_number', 255).notNullable();
+        table.string('account_number', 12).notNullable().unique();
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
     

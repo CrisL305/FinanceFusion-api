@@ -24,12 +24,13 @@ exports.createLoan = async (req, res) => {
 //Update loan
 exports.updateLoan = async (req, res) => {
     try {
+        const {loan_id} = req.params;
         const { loan_type, outstanding_balance, interest_rate, payment_schedule } = req.body;
-        const loan = await knex('Loans').where({ loan_id: req.params.loanId }).first();
+        const loan = await knex('Loans').where({ loan_id }).first();
         if (!loan) {
             return res.status(404).json({ message: 'Loan not found' });
         }
-        await knex('Loans').where({ loan_id: req.params.loanId }).update({ loan_type, outstanding_balance, interest_rate, payment_schedule });
+        await knex('Loans').where({ loan_id }).update({ loan_type, outstanding_balance, interest_rate, payment_schedule });
         res.status(200).json({ message: 'Loan updated successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error updating loans' });
@@ -39,11 +40,11 @@ exports.updateLoan = async (req, res) => {
 //Delete loan
 exports.deleteLoan = async (req, res) => {
     try {
-        const loan = await knex('Loans').where({ loan_id: req.params.loanId }).first();
+        const loan = await knex('Loans').where({ loan_id: req.params.loan_id }).first();
         if (!loan) {
             return res.status(404).json({ message: 'Loan not found' });
         }
-        await knex('Loans').where({ loan_id: req.params.loanId }).del();
+        await knex('Loans').where({ loan_id: req.params.loan_id }).del();
         res.status(200).json({ message: 'Loan deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting loans' });
