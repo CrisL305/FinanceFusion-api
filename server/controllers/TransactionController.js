@@ -1,5 +1,51 @@
 const knex = require('knex')(require('../knexfile'));
 
+//Get all transaction
+exports.getAllTransactions = async (req, res) => {
+    try {
+        const transactions = await knex('Transactions').select('*');
+
+        if (transactions.length === 0) {
+            return res.status(404).json({ message: 'No transactions found' });
+        }
+
+        res.status(200).json(transactions);
+    } catch (error) {
+        console.error('Error fetching all transactions:', error);
+        res.status(500).json({ error: 'Error fetching transactions' });
+    }
+};
+
+//Get all transactions for a specific user across all accounts
+exports.getUserTransactions = async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        const accounts = await knex('Accounts')
+            .where({ id })
+            .select("account_id");
+
+        if (accounts.length === 0) {
+            return res.status(404).json({ message: 'no accounts found for this user'});
+        }
+
+        const accountIds = accounts.map((account) => account.account_id);
+
+        const userTransactions = await knex('Transactions')
+            .whereIn('account_id', accountIds)
+            .select('*');
+        
+        if (userTransactions.length === 0) {
+            return res.status(404).json({ message: 'No transactions found for this user' });
+        }
+
+        res.status(200).json(userTransactions);
+    } catch (error) {
+        console.error('Error fetching user transactions:', error);
+        res.status(500).json({ error: 'Error fetching transactions' });
+    }
+};
+
 //Get all transactions for an account
 exports.getTransactionByAccountId = async (req, res) => {
     try{
@@ -24,11 +70,16 @@ exports.createTransaction = async (req, res) => {
 //Update transaction
 exports.updateTransaction = async (req, res) => {
     const { transaction_id } = req.params;
-    const { amount, transaction_type, category, description, date } = req.body;
+    const { account_id, amount, transaction_type, category, description, date } = req.body;
 
     try{
+        if (!account_id){
+            return res.status(400).json({ error: "account_id is required"});
+        }
+
         const transaction = await knex('Transactions').where({ transaction_id }).first();
         //Guard clause
+        
         if (!transaction){
             return res.status(404).json({ message: 'Transaction not found' });
         }
@@ -37,6 +88,7 @@ exports.updateTransaction = async (req, res) => {
         const formattedDate = date ? new Date(date).toISOString().split('T')[0] : null;
 
         await knex('Transactions').where({ transaction_id }).update({ 
+            account_id,
             amount, 
             transaction_type, 
             category, 

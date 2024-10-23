@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const TransactionController = require('../controllers/TransactionController');
 
+//Route to get all transactions
+router.get('/', TransactionController.getAllTransactions);
+
+//Route to get all transactions for a specific user
+router.get('/:id', TransactionController.getUserTransactions);
+
 //Retrieves all transactions across connected accounts
 router.get("/account/:account_id", TransactionController.getTransactionByAccountId);
 
