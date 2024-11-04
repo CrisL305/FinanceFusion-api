@@ -98,9 +98,7 @@ passport.use(
         },
         (_accessToken, _refreshToken, profile, done) => {
             //This implementation doesn't require an access or refresh tokens.
-            //Profile parameter will be the profile object we get back from GitHub.
-            console.log('GitHub profile:', profile);
-
+ 
             //This code checks if we already have this user in our DB
             knex('Users')
                 .select('id')
@@ -137,8 +135,7 @@ passport.use(
 // The data comes from `done` function of the strategy
 // The result of the method is attached to the session as `req.session.passport.user = 12345`
 passport.serializeUser((user, done) => {
-    console.log('serializeUser (user object):', user);
-
+    
     //Stores only the user id in session
     done(null, user.id);
 });
@@ -146,14 +143,14 @@ passport.serializeUser((user, done) => {
 // `deserializeUser` receives a value sent from `serializeUser` `done` function
 // We can then retrieve full user information from our database using the userId
 passport.deserializeUser((userId, done) => {
-    console.log('deserializeUser (user id):', userId);
+   
 
       // Query user information from the database for currently authenticated user
   knex('Users')
   .where({ id: userId })
   .then((user) => {
     // Remember that knex will return an array of records, so we need to get a single record from it
-    console.log('req.user:', user[0]);
+    
 
     // The full user object will be attached to request object as `req.user`
     done(null, user[0]);
